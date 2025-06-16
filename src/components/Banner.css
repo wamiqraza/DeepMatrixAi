@@ -1,0 +1,4 @@
+.gradient-stroke-text {
+  color: transparent;
+  -webkit-text-stroke: 1px #9a3fe4; /* Set stroke width and color */
+}
