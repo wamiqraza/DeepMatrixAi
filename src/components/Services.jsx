@@ -12,53 +12,47 @@ const services = [
     title: "Generative AI",
     description: "Generative AI is a fascinating branch of artificial intelligence that focuses on creating new content.",
     icon: service1,
-    highlighted: false,
     readMore: "Read More",
   },
   {
     title: "LLM Finetuning",
     description: "In the realm of Natural Language Processing (NLP), fine-tuning models like BERT, GPT, and RoBERTa has emerged as a powerful technique to adapt pre-trained language.",
     icon: service2,
-    highlighted: true,
     readMore: "Read More",
   },
   {
     title: "Chat Bot",
     description: "Empower your business with our advanced chatbot solutions designed to enhance customer experience.",
     icon: service3,
-    highlighted: false,
     readMore: "Read More",
   },
   {
     title: "Computer Vision",
     description: "Computer vision is a revolutionary field within artificial intelligence that enables machines to interpret visual data.",
     icon: service4,
-    highlighted: false,
     readMore: "Read More",
   },
   {
     title: "Speech Recognition",
     description: "Speech recognition technology has revolutionized how we interact with devices and applications.",
     icon: service5,
-    highlighted: false,
     readMore: "Read More",
   },
   {
     title: "Anomaly Detection",
     description: "Anomaly detection is a crucial aspect of data analysis, providing the capability to identify unusual patterns.",
     icon: service6,
-    highlighted: false,
     readMore: "Read More",
   },
 ];
 
 const Services = () => {
   return (
-    <section className="py-16 px-20 bg-gray-50 min-h-screen mt-24">
+    <section className="py-16 lg:px-20 px-6 bg-gray-50 min-h-screen lg:mt-24 mt-18">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-20 flex flex-col items-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+          <h2 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
             Our <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Services</span>
           </h2>
           <img src={servicesStar} alt="" className='w-55'/>
@@ -67,20 +61,10 @@ const Services = () => {
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <div
-              key={index}
-              className={`group relative bg-white rounded-2xl p-8 shadow-lg border border-gray-200 transition-all duration-500 ease-in-out transform hover:scale-105 hover:shadow-2xl cursor-pointer ${
-                service.highlighted 
-                  ? 'bg-gradient-to-br from-purple-500 to-blue-600 text-white' 
-                  : 'hover:bg-gradient-to-br hover:from-purple-500 hover:to-blue-600 hover:text-white'
-              }`}
-            >
+            <div key={index} className='group relative bg-white rounded-2xl p-8 shadow-lg border border-gray-200 transition-all duration-500 ease-in-out transform hover:scale-105 hover:shadow-2xl cursor-pointer hover:bg-gradient-to-br hover:from-purple-500 hover:to-blue-600 hover:text-white'>
               {/* Icon Container */}
-              <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-6 transition-all duration-500 ${
-                service.highlighted 
-                  ? 'bg-white backdrop-blur-sm' 
-                  : 'bg-[var(--primary-color)] group-hover:bg-white/20 group-hover:backdrop-blur-sm'
-              }`}>
+              <div className='w-16 h-16 rounded-full flex items-center justify-center mb-6 transition-all duration-500 bg-[var(--primary-color)] group-hover:bg-white/9 group-hover:text-[var(--primary-color)] group-hover:shadow-lg ${
+                '>
                 <img 
                   src={service.icon} 
                   alt={service.title}
@@ -90,27 +74,18 @@ const Services = () => {
 
               {/* Content */}
               <div className="space-y-4">
-                <h3 className={`text-xl font-bold transition-all duration-500 ${
-                  service.highlighted 
-                    ? 'text-white' 
-                    : 'text-gray-800 group-hover:text-white'
-                }`}>
+                <h3 className='text-xl font-bold transition-all duration-500 ${
+                  '>
                   {service.title} 
                 </h3>
                 
-                <p className={`text-sm leading-relaxed transition-all duration-500 ${
-                  service.highlighted 
-                    ? 'text-white/90' 
-                    : 'text-gray-600 group-hover:text-white/90'
-                }`}>
+                <p className='text-sm leading-relaxed transition-all duration-500 ${
+                  '>
                   {service.description}
                 </p>
 
-                <button className={`text-sm font-semibold transition-all duration-500 hover:underline ${
-                  service.highlighted 
-                    ? 'text-white' 
-                    : 'text-purple-600 group-hover:text-white'
-                }`}>
+                <button className='text-sm text-[var(--primary-color)] font-semibold transition-all duration-500 hover:underline group-hover:text-white 
+                  '>
                   {service.readMore}
                 </button>
               </div>

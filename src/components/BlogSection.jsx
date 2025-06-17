@@ -34,10 +34,10 @@ const BlogSection = () => {
 
   return (
 
-    <section className="mt-24 px-20">
-      <div>
-        <div className="flex items-center justify-between">
-          <div className='w-1/2'>
+    <section className="lg:mt-24 mt-18 lg:px-20 px-6">
+
+      <div className="flex lg:flex-row flex-col items-center justify-between">
+          <div className='lg:w-1/2 w-full mb-6 lg:mb-0'>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
               Blog about <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">Developement</span>
             </h2>
@@ -47,13 +47,14 @@ const BlogSection = () => {
               experts regularly publishes articles on various topics.
             </p>
           </div>
-          <button className='bg-gradient-to-r from-[#A55EEA] to-[#648DFD] text-white px-6 py-2 rounded-full hover:from-[#A55EEA] hover:to-[#648DFD] transition duration-300 ease-in-out'>
+          <button className='hidden lg:block bg-gradient-to-r from-[#A55EEA] to-[#648DFD] text-white px-6 py-2 rounded-full hover:from-[#A55EEA] hover:to-[#648DFD] transition duration-300 ease-in-out'>
             <Link to="/blog">
               Explore Now!
             </Link>
           </button>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 container mx-auto py-10">
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 container mx-auto py-10">
           {blogs.map((blog, index) => (
             <BlogCard
               key={index}
@@ -63,8 +64,13 @@ const BlogSection = () => {
               time={blog.time}
             />
           ))}
-        </div>
+          <button className='lg:hidden block bg-gradient-to-r from-[#A55EEA] to-[#648DFD] text-white px-6 py-2 rounded-full hover:from-[#A55EEA] hover:to-[#648DFD] transition duration-300 ease-in-out'>
+            <Link to="/blog">
+              Explore Now!
+            </Link>
+          </button>
       </div>
+
     </section>
   );
 };
