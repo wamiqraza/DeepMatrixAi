@@ -101,14 +101,14 @@ const Banner = () => {
         <p className="lg:text-lg text-md font-light">Artificial Intelligence (AI) is transforming industries with its ability to automate processes and deliver advanced analytics.</p>
         <button className="bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 px-4 rounded-full mt-4 flex items-center gap-2 cursor-pointer">Explore Now! <MoveUpRight className='w-5 h-5' /></button>
         <div className="flex gap-8 mt-8">
-          <h2 className='lg:text-4xl text-3xl font-bold leading-6'>100+<br /><span className="lg:text-xl text-sm font-light leading-0">Project Complete</span></h2>
-          <h2 className='lg:text-4xl text-3xl font-bold border border-r-gray-500 border-l-gray-500 border-t-0 border-b-0 px-4 leading-6'>50+ <br/><span className="lg:text-xl text-sm font-light leading-0">Client Reviews</span></h2>
-          <h2 className='lg:text-4xl text-3xl font-bold leading-6'>90+<span className="lg:text-xl text-sm font-light flex pt-2"><Star className='w-5 h-5 fill-amber-300 stroke-amber-300' />5 Star Rating </span></h2>
+          <h2 className='lg:text-4xl text-3xl font-bold leading-6'>100+<br /><span className="lg:text-md text-sm font-light leading-0">Project Complete</span></h2>
+          <h2 className='lg:text-4xl text-3xl font-bold border border-r-gray-500 border-l-gray-500 border-t-0 border-b-0 px-4 leading-6'>50+ <br/><span className="lg:text-md text-sm font-light leading-0">Client Reviews</span></h2>
+          <h2 className='lg:text-4xl text-3xl font-bold leading-6'>90+<span className="lg:text-md text-sm font-light flex gap-1 items-center pt-2"><Star className='w-4 h-4 fill-amber-300 stroke-amber-300' />5 Star Rating </span></h2>
         </div>
       </div>
-      <div className="relative lg:max-w-1/2 w-full lg:my-0 my-16 flex items-center">
+      <div className="relative lg:max-w-1/2 w-full lg:my-0 mt-18 mb-24 flex items-center">
         <img src={bannerImg} alt="" className='lg:w-[550px]' /> 
-        <img src={animtedCircle} alt="" style={{animationDuration: `5s`}} className='animate-spin lg:w-45 w-32 absolute lg:top-90 top-50'/> 
+        <img src={animtedCircle} alt="" style={{animationDuration: `5s`}} className='animate-spin lg:w-45 w-32 absolute lg:top-90 top-60'/> 
       </div>
     </div>
   );

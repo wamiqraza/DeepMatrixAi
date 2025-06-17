@@ -22,7 +22,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="lg:p-20 px-6 pt-16 lg:mt-24 mt-18 bg-gray-50 mx-auto flex lg:flex-row flex-col-reverse md:flex-row items-top justify-center gap-10">
+    <div className="lg:p-20 px-6 py-18 lg:mt-24 mt-18 bg-gray-50 mx-auto flex lg:flex-row flex-col-reverse md:flex-row items-top justify-center gap-10">
         <div className="lg:w-1/2 w-full">
           <img src={contactUs} alt="Contact Us" className='w-[450px]' />
         </div>

@@ -54,16 +54,18 @@ const BlogSection = () => {
           </button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 container mx-auto py-10">
-          {blogs.map((blog, index) => (
-            <BlogCard
-              key={index}
-              title={blog.title}
-              description={blog.description}
-              image={blog.image}
-              time={blog.time}
-            />
-          ))}
+      <div className="flex flex-col items-center justify-center mt-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 container mx-auto py-10">
+            {blogs.map((blog, index) => (
+              <BlogCard
+                key={index}
+                title={blog.title}
+                description={blog.description}
+                image={blog.image}
+                time={blog.time}
+              />
+            ))}
+          </div>
           <button className='lg:hidden block bg-gradient-to-r from-[#A55EEA] to-[#648DFD] text-white px-6 py-2 rounded-full hover:from-[#A55EEA] hover:to-[#648DFD] transition duration-300 ease-in-out'>
             <Link to="/blog">
               Explore Now!

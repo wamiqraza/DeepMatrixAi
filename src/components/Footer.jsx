@@ -17,7 +17,7 @@ const Footer = () => {
           <Linkedin />
         </a>
       </div>
-      <span className="text-white text-sm">© 2024 by AI Developer All rights reserved!</span>
+      <span className="text-white text-center text-sm">© 2024 by AI Developer All rights reserved!</span>
     </footer>
   );
 };
