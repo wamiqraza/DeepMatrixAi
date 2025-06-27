@@ -14,7 +14,7 @@ const BlogDetail = () => {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/blogs/${slug}`);
+        const res = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/blogs/${slug}`);
         setBlog(res.data);
       } catch (err) {
         console.error("Error fetching blog details:", err);
@@ -37,7 +37,7 @@ const BlogDetail = () => {
 
         {blog.imageFile && (
           <img
-            src={`http://localhost:5000${blog.imageFile}`}
+            src={`${import.meta.env.VITE_REACT_APP_BACKEND_URL}${blog.imageFile}`}
             alt={blog.title}
             className="w-full h-auto rounded-lg mb-6"
           />

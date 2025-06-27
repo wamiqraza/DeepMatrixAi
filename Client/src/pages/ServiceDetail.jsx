@@ -14,7 +14,7 @@ const ServiceDetail = () => {
   useEffect(() => {
     const fetchService = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/services/${slug}`);
+        const res = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/services/${slug}`);
         setService(res.data);
       } catch (err) {
         console.error("Error fetching service details:", err);
@@ -37,7 +37,7 @@ const ServiceDetail = () => {
 
         {service.imageFile && (
           <img
-            src={`http://localhost:5000${service.imageFile}`}
+            src={`${import.meta.env.VITE_REACT_APP_BACKEND_URL}${service.imageFile}`}
             alt={service.title}
             className="w-full h-auto rounded-lg mb-6"
           />

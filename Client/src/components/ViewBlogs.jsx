@@ -11,7 +11,7 @@ const ViewBlogs = ({ onEditBlog }) => {
   const fetchBlogs = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('http://localhost:5000/api/blogs');
+      const res = await axios.get('${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/blogs');
       setBlogs(res.data);
     } catch (error) {
       console.error('Error fetching services:', error);
@@ -27,7 +27,7 @@ const ViewBlogs = ({ onEditBlog }) => {
     }
 
     try {
-      await axios.delete(`http://localhost:5000/api/blogs/${id}`);
+      await axios.delete(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/blogs/${id}`);
       setBlogs(blogs.filter(blog => blog._id !== id));
       alert('Blog deleted successfully!');
     } catch (error) {

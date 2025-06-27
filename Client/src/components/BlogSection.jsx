@@ -8,7 +8,7 @@ const BlogSection = () => {
 
   useEffect(() => {
     const fetchBlogs = async () => {
-      const res = await axios.get('http://localhost:5000/api/blogs');
+      const res = await axios.get('${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/blogs');
       setBlogs(res.data);
     };
     fetchBlogs();
@@ -43,7 +43,7 @@ const BlogSection = () => {
               const trimmedText = plainText?.split(' ').slice(0, 15).join(' ') + '...';
 
               return (
-                <div key={blog._id || index} style={{ backgroundImage: `url(http://localhost:5000${blog.coverImage})` }} className="bg-white bg-cover bg-center rounded-lg overflow-hidden shadow-md flex flex-col justify-between min-h-100">
+                <div key={blog._id || index} style={{ backgroundImage: `url(${import.meta.env.VITE_REACT_APP_BACKEND_URL}${blog.coverImage})` }} className="bg-white bg-cover bg-center rounded-lg overflow-hidden shadow-md flex flex-col justify-between min-h-100">
                   <div className="relative">
                     <span className="time absolute top-2 right-2 bg-black text-white py-1 px-2 rounded-full text-sm">5 min read</span>
                   </div>

@@ -11,7 +11,7 @@ const Services = () => {
 
   useEffect(() => {
     const fetchServices = async () => {
-      const res = await axios.get('http://localhost:5000/api/services');
+      const res = await axios.get('${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/services');
       setServices(res.data);
     };
     fetchServices();
@@ -31,7 +31,7 @@ const Services = () => {
           {services.map((service, index) => (
             <div key={index} className='group relative bg-white rounded-2xl p-8 shadow-lg border border-gray-200 transition-all duration-500 ease-in-out transform hover:scale-105 hover:shadow-2xl cursor-pointer hover:bg-gradient-to-br hover:from-purple-500 hover:to-blue-600 hover:text-white'>
               <div className='w-16 h-16 rounded-full flex items-center justify-center mb-6 transition-all duration-500 bg-[var(--primary-color)] group-hover:bg-white/9 group-hover:text-[var(--primary-color)] group-hover:shadow-lg'>
-                <img src={`http://localhost:5000${service.iconFile}`} alt={service.title} className="w-8 h-8 object-contain transition-all duration-500" />
+                <img src={`${import.meta.env.VITE_REACT_APP_BACKEND_URL}${service.iconFile}`} alt={service.title} className="w-8 h-8 object-contain transition-all duration-500" />
               </div>
               <div className="space-y-4">
                 <h3 className='text-xl font-bold'>{service.title}</h3>

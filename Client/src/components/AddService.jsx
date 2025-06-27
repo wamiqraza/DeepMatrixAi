@@ -52,7 +52,7 @@ const AddService = ({ editingServiceId, onBackToServices }) => {
   const fetchServiceData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:5000/api/services/by-id/${editingServiceId}`);
+      const response = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/services/by-id/${editingServiceId}`);
       const service = response.data;
       
       setFormData({
@@ -105,12 +105,12 @@ const AddService = ({ editingServiceId, onBackToServices }) => {
     try {
       let response;
       if (isEditMode) {
-        response = await axios.put(`http://localhost:5000/api/services/${editingServiceId}`, data, {
+        response = await axios.put(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/services/${editingServiceId}`, data, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         alert("Service updated successfully!");
       } else {
-        response = await axios.post("http://localhost:5000/api/services", data, {
+        response = await axios.post("${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/services", data, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         alert("Service added successfully!");
@@ -189,7 +189,7 @@ const AddService = ({ editingServiceId, onBackToServices }) => {
             <div className="mb-2">
               <span className="text-sm text-gray-600">Current icon:</span>
               <img 
-                src={`http://localhost:5000${existingFiles.iconUrl}`} 
+                src={`${import.meta.env.VITE_REACT_APP_BACKEND_URL}${existingFiles.iconUrl}`} 
                 alt="Current icon" 
                 className="w-16 h-16 object-cover border rounded mt-1"
               />
@@ -211,7 +211,7 @@ const AddService = ({ editingServiceId, onBackToServices }) => {
             <div className="mb-2">
               <span className="text-sm text-gray-600">Current image:</span>
               <img 
-                src={`http://localhost:5000${existingFiles.imageUrl}`} 
+                src={`${import.meta.env.VITE_REACT_APP_BACKEND_URL}${existingFiles.imageUrl}`} 
                 alt="Current image" 
                 className="w-32 h-20 object-cover border rounded mt-1"
               />
