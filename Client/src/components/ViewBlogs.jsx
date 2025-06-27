@@ -3,15 +3,16 @@ import axios from 'axios';
 import { Trash2, SquarePen } from 'lucide-react';
 import DashHeader from './DashHeader';
 
-const ViewServices = ({ onEditService }) => {
-  const [services, setServices] = useState([]);
+const ViewBlogs = ({ onEditBlog }) => {
+
+  const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const fetchServices = async () => {
+  const fetchBlogs = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('http://localhost:5000/api/services');
-      setServices(res.data);
+      const res = await axios.get('http://localhost:5000/api/blogs');
+      setBlogs(res.data);
     } catch (error) {
       console.error('Error fetching services:', error);
       alert('Failed to fetch services');
@@ -20,74 +21,74 @@ const ViewServices = ({ onEditService }) => {
     }
   };
 
-  const deleteService = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this service?')) {
-      return;
+    const deleteBlog = async (id) => {
+        if (!window.confirm('Are you sure you want to delete this service?')) {
+        return;
     }
 
     try {
-      await axios.delete(`http://localhost:5000/api/services/${id}`);
-      setServices(services.filter(service => service._id !== id));
-      alert('Service deleted successfully!');
+      await axios.delete(`http://localhost:5000/api/blogs/${id}`);
+      setBlogs(blogs.filter(blog => blog._id !== id));
+      alert('Blog deleted successfully!');
     } catch (error) {
       console.error('Error deleting service:', error);
       alert('Failed to delete service');
     }
   };
 
-  const handleEditService = (id) => {
-    // Call the parent function to handle editing
-    if (onEditService) {
-      onEditService(id);
+  const handleEditBlog = (id) => {
+    if (onEditBlog) {
+      onEditBlog(id);
     }
   };
 
   useEffect(() => {
-    fetchServices();
+    fetchBlogs();
   }, []);
 
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col bg-gray-100 w-full gap-10">   
-        <DashHeader title="View Services" />
+        <DashHeader title="View Blogs" />
         <div className="flex justify-center items-center flex-1">
-          <div className="text-gray-600">Loading services...</div>
+          <div className="text-gray-600">Loading blogs...</div>
         </div>
       </div>
     );
   }
 
   return (
+
     <div className="min-h-screen flex flex-col bg-gray-100 w-full gap-10">   
-      <DashHeader title="View Services" />
+      <DashHeader title="View Blogs" />
       
       <div className='flex justify-between mx-6 border-b border-gray-700 pb-2 text-black'>
-        <span>No.&nbsp; Service Name</span>
+        <span>No.&nbsp; Blog Name</span>
         <span>Actions</span>
       </div>
       
-      {services.length === 0 ? (
+      {blogs.length === 0 ? (
         <div className="flex flex-col items-center justify-center flex-1 text-center">
-          <span className="text-gray-500 mb-4">No services added yet</span>
+          <span className="text-gray-500 mb-4">No blog added yet</span>
         </div>
       ) : (
         <div className="mx-6">
-          {services.map((service, idx) => (
-            <div key={service._id} className="flex justify-between items-center mb-3 border-b border-gray-400 pb-2">
+          {blogs.map((blog, idx) => (
+            <div key={blog._id} className="flex justify-between items-center mb-3 border-b border-gray-400 pb-2">
               <div className="flex items-center flex-1">
                 <div className="w-8 text-gray-500">{idx + 1}.</div>
-                <div className="flex-1 font-light text-gray-600">{service.title}</div>
+                <div className="flex-1 font-light text-gray-600">{blog.title}</div>
               </div>
               <div className="flex items-center gap-2">
                 <button 
-                  onClick={() => handleEditService(service._id)} 
+                  onClick={() => handleEditBlog(blog._id)} 
                   className="text-green-600 hover:text-green-800 cursor-pointer p-1 rounded"
                   title="Edit Service"
                 >
                   <SquarePen size={20} />
                 </button>
                 <button 
-                  onClick={() => deleteService(service._id)}  
+                  onClick={() => deleteBlog(blog._id)}  
                   className="text-red-600 hover:text-red-800 cursor-pointer p-1 rounded"
                   title="Delete Service"
                 >
@@ -102,4 +103,4 @@ const ViewServices = ({ onEditService }) => {
   );
 };
 
-export default ViewServices;
+export default ViewBlogs;

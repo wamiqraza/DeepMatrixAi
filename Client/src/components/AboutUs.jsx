@@ -4,7 +4,7 @@ import aboutstar from '../assets/images/about-star.png'; // Ensure you have the 
 
 const AboutUs = () => {
     return (
-        <div className="container flex lg:flex-row flex-col justify-center items-center gap-12 lg:mt-24 mt-18 lg:px-20 px-6">
+        <div className="container flex lg:flex-row flex-col justify-center items-center gap-12 lg:mt-24 mt-18 lg:px-20 px-6 mb-12">
             <div className='lg:w-1/2 w-full'>
                 <img src={aboutus} alt="about main" className="w-[500px]" />
             </div>

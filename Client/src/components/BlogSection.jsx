@@ -1,40 +1,22 @@
-import React from 'react';
-import BlogCard from './BlogCard';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
-import blog1 from '../assets/images/blog1.png'
-import blog2 from '../assets/images/blog2.png'
-import blog3 from '../assets/images/blog3.png'
-
 
 const BlogSection = () => {
 
-  const blogs = [
-    {
-      title: 'Demystifying Deep Learning Networks',
-      description:
-        'Delve into the world of deep learning as we unravel the complexities of neural networks. In this blog...',
-      image: blog1,
-      time: '7 Min Added',
-    },
-    {
-      title: 'The Evolution Of Natural Language Processing',
-      description:
-        'Join us on a journey through the evolution of natural language processing (NLP) as we trace its development.',
-      image: blog2,
-      time: '7 Min Added',
-    },
-    {
-      title: 'Unleashing The Power Of Computer Vision',
-      description:
-        'Unlock the potential of computer vision as we explore its applications and discuss emerging that are shaping its future.',
-      image: blog3,
-      time: '7 Min Added',
-    },
-  ];
+  const [blogs, setBlogs] = useState([]);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      const res = await axios.get('http://localhost:5000/api/blogs');
+      setBlogs(res.data);
+    };
+    fetchBlogs();
+  }, []);
 
   return (
 
-    <section className="lg:mt-24 mt-18 lg:px-20 px-6">
+    <section className="lg:mt-24 mt-18 lg:px-20 px-6 mb-12">
 
       <div className="flex lg:flex-row flex-col items-center justify-between">
           <div className='lg:w-1/2 w-full mb-6 lg:mb-0'>
@@ -54,18 +36,27 @@ const BlogSection = () => {
           </button>
       </div>
 
-      <div className="flex flex-col items-center justify-center mt-10">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 container mx-auto py-10">
-            {blogs.map((blog, index) => (
-              <BlogCard
-                key={index}
-                title={blog.title}
-                description={blog.description}
-                image={blog.image}
-                time={blog.time}
-              />
-            ))}
-          </div>
+      <div className="flex flex-row gap-8 flex-wrap items-start justify-start mt-10">
+            {blogs.map((blog, index) => {
+
+              const plainText = blog.content?.replace(/<[^>]+>/g, '');
+              const trimmedText = plainText?.split(' ').slice(0, 15).join(' ') + '...';
+
+              return (
+                <div key={blog._id || index} style={{ backgroundImage: `url(http://localhost:5000${blog.coverImage})` }} className="bg-white bg-cover bg-center rounded-lg overflow-hidden shadow-md flex flex-col justify-between min-h-100">
+                  <div className="relative">
+                    <span className="time absolute top-2 right-2 bg-black text-white py-1 px-2 rounded-full text-sm">5 min read</span>
+                  </div>
+                  <div className="bg-gradient-to-b from-gray-700/2 to-black p-4 lg:p-6 pt-14">
+                    <h3 className="text-xl font-bold text-white">{blog.title}</h3>
+                    <p className="text-gray-200 text-sm mb-4 leading-relaxed">{trimmedText}</p>
+                    <Link to={`/blogs/${blog.slug}`} className="bg-white text-black mt-5 px-6 py-1 rounded-full cursor-pointer">
+                      Read More
+                    </Link>
+                  </div>
+                </div>
+              );
+            })}
           <button className='lg:hidden block bg-gradient-to-r from-[#A55EEA] to-[#648DFD] text-white px-6 py-2 rounded-full hover:from-[#A55EEA] hover:to-[#648DFD] transition duration-300 ease-in-out'>
             <Link to="/blog">
               Explore Now!

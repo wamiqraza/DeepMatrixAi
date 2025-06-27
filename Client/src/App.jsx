@@ -10,8 +10,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Error from './pages/Error';
 import ServiceDetail from './pages/ServiceDetail';
-import AddService from './components/AddService';
-import ViewServices from './components/ViewServices';
+import BlogDetail from './pages/BlogDetail';
 
 // Use to protect dashboard route from direct access
 const PrivateRoute = ({ children }) => {
@@ -32,10 +31,8 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}></Route>
         <Route path="/services/:slug" element={<ServiceDetail />} />
+        <Route path="/blogs/:slug" element={<BlogDetail />} />
         <Route path="*" element={<Error />} />
-        {/* <Route path="add-service" element={<AddService />} />
-        <Route path="add-service/:id" element={<AddService />} />
-        <Route path="view-services" element={<ViewServices />} /> */}
       </Routes>
     </Router>
   );

@@ -120,7 +120,7 @@ const AddService = ({ editingServiceId, onBackToServices }) => {
       
       // Reset form after successful submission
       resetForm();
-      
+
       // If we were editing, go back to services view
       if (isEditMode && onBackToServices) {
         onBackToServices();
@@ -199,7 +199,7 @@ const AddService = ({ editingServiceId, onBackToServices }) => {
             type="file"
             accept="image/*"
             onChange={e => setFormData({ ...formData, iconFile: e.target.files[0] })}
-            className="border rounded-lg p-2 w-100 me-6"
+            className="border border-gray-400 rounded-lg p-2 w-100 me-6"
             required={!isEditMode}
           />
           {isEditMode && <span className="text-sm text-gray-500 mt-1">Leave empty to keep current icon</span>}
@@ -221,7 +221,7 @@ const AddService = ({ editingServiceId, onBackToServices }) => {
             type="file"
             accept="image/*"
             onChange={e => setFormData({ ...formData, imageFile: e.target.files[0] })}
-            className="border rounded-lg p-2 w-100"
+            className="border border-gray-400 rounded-lg p-2 w-100"
             required={!isEditMode}
           />
           {isEditMode && <span className="text-sm text-gray-500 mt-1">Leave empty to keep current image</span>}

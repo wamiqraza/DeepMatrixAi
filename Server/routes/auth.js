@@ -1,8 +1,10 @@
+// In routes/auth.js
+
 const express = require('express');
 const router = express.Router();
 
-const ADMIN_CREDENTIALS = {
-  username: "admin",
+let ADMIN_CREDENTIALS = {
+  username: "wamiq",
   password: "123456"
 };
 
@@ -18,5 +20,15 @@ router.post('/login', (req, res) => {
   }
 });
 
+router.post('/reset', (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+  
+  if (oldPassword !== ADMIN_CREDENTIALS.password) {
+    return res.status(400).json({ success: false, message: "Old password is incorrect." });
+  }
+
+  ADMIN_CREDENTIALS.password = newPassword;
+  return res.json({ success: true, message: "Password updated successfully!" });
+});
+
 module.exports = router;
-// This code defines a simple authentication route for an admin user.

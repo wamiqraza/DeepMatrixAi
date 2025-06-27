@@ -5,11 +5,13 @@ import { useNavigate } from "react-router-dom";
 import ViewServices from "../components/ViewServices";
 import { Plus } from 'lucide-react';
 import { Eye } from 'lucide-react';
+import ViewBlogs from "../components/ViewBlogs";
 
 const Dashboard = () => {
   
   const [activeTab, setActiveTab] = useState("addService");
   const [editingServiceId, setEditingServiceId] = useState(null);
+  const [editingBlogId, setEditingBlogId] = useState(null);
   const navigate = useNavigate();
 
   if (!localStorage.getItem("isLoggedIn")) {
@@ -23,10 +25,22 @@ const Dashboard = () => {
     setActiveTab("addService");
   };
 
+  // Function to handle edit blog - called from ViewBlogs
+  const handleEditBlog = (blogId) => {
+    setEditingBlogId(blogId);
+    setActiveTab("addBlog");
+  };
+
   // Function to handle back to view services after edit
   const handleBackToServices = () => {
     setEditingServiceId(null);
     setActiveTab("viewServices");
+  };
+
+   // Function to handle back to view blogs after edit
+  const handleBackToBlog = (blogId) => {
+    setEditingBlogId(blogId);
+    setActiveTab("viewBlogs");
   };
 
   return (
@@ -61,14 +75,27 @@ const Dashboard = () => {
             </button>
             <button
               onClick={() => {
-                setActiveTab("blogs");
-                setEditingServiceId(null); // Reset editing when switching tabs
+                setActiveTab("addBlog");
+                setEditingBlogId(null); // Reset editing when switching tabs
               }}
-              className={`py-2 px-4 text-gray-300 hover:text-white cursor-pointer rounded ${
-                activeTab === "blogs" ? "bg-gray-100/7 text-gray-300" : ""
+              className={`flex gap-2 py-2 items-center px-2 text-gray-300 hover:text-white cursor-pointer rounded ${
+                activeTab === "addBlog" ? "bg-gray-100/7 text-gray-300" : ""
               }`}
             >
-              Add Blog
+              <Plus className="w-4 h-4" />
+              {editingBlogId ? "Edit Blog" : "Add Blog"}
+            </button>
+            <button
+              onClick={() => {
+                setActiveTab("viewBlogs");
+                setEditingBlogId(null); // Reset editing when switching tabs
+              }}
+              className={`flex gap-2 py-2 items-center px-2 text-gray-300 hover:text-white cursor-pointer rounded ${
+                activeTab === "viewBlogs" ? "bg-gray-100/7 text-gray-300" : ""
+              }`}
+            >
+              <Eye className="w-4 h-4" />
+              View Blog
             </button>
           </div>
           <button
@@ -83,17 +110,11 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {activeTab === "addService" && (
-        <AddService 
-          editingServiceId={editingServiceId} 
-          onBackToServices={handleBackToServices}
-        />
-      )}
-      {activeTab === "viewServices" && (
-        <ViewServices onEditService={handleEditService} />
-      )}
-      {activeTab === "blogs" && <AddBlog />}
-      
+      {activeTab === "addService" && (<AddService editingServiceId={editingServiceId} onBackToServices={handleBackToServices} />)}
+      {activeTab === "viewServices" && (<ViewServices onEditService={handleEditService} />)}
+      {activeTab === "addBlog" && (<AddBlog editingBlogId={editingBlogId} onBackToBlogs={handleBackToBlog} />)}
+      {activeTab === "viewBlogs" && (<ViewBlogs onEditBlog={handleEditBlog} />)}
+    
     </div>
   );
 }
