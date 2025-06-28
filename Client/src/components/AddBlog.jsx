@@ -95,7 +95,7 @@ const AddBlog = ({ editingBlogId, onBackToBlogs }) => {
         });
         alert("Blog updated successfully!");
       } else {
-          response = await axios.post("${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/blogs", data, {
+          response = await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/blogs`, data, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         alert("Blog added successfully!");

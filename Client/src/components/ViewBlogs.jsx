@@ -11,7 +11,7 @@ const ViewBlogs = ({ onEditBlog }) => {
   const fetchBlogs = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/blogs');
+      const res = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/blogs`);
       setBlogs(res.data);
     } catch (error) {
       console.error('Error fetching services:', error);

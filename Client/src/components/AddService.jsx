@@ -110,7 +110,7 @@ const AddService = ({ editingServiceId, onBackToServices }) => {
         });
         alert("Service updated successfully!");
       } else {
-        response = await axios.post("${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/services", data, {
+        response = await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/services`, data, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         alert("Service added successfully!");
