@@ -21,7 +21,7 @@ const LoginForm = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/auth/login`, {
+      const res = await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}api/auth/login`, {
         username,
         password
       });
@@ -47,7 +47,7 @@ const LoginForm = () => {
 
     try {
       // Simulating a backend password reset logic with basic validation
-      const res = await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/auth/reset`, {
+      const res = await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}api/auth/reset`, {
         oldPassword,
         newPassword,
       });

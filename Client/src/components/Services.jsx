@@ -11,7 +11,7 @@ const Services = () => {
 
   useEffect(() => {
     const fetchServices = async () => {
-      const res = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/services`);
+      const res = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}api/services`);
       setServices(res.data);
     };
     fetchServices();

@@ -43,7 +43,7 @@ const AddBlog = ({ editingBlogId, onBackToBlogs }) => {
   const fetchBlogData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/blogs/by-id/${editingBlogId}`);
+      const response = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}api/blogs/by-id/${editingBlogId}`);
       const service = response.data;
       
       setFormData({
@@ -90,12 +90,12 @@ const AddBlog = ({ editingBlogId, onBackToBlogs }) => {
     try {
       let response;
       if (isEditMode) {
-          response = await axios.put(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/blogs/${editingBlogId}`, data, {
+          response = await axios.put(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}api/blogs/${editingBlogId}`, data, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         alert("Blog updated successfully!");
       } else {
-          response = await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/blogs`, data, {
+          response = await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}api/blogs`, data, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         alert("Blog added successfully!");

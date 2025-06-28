@@ -24,12 +24,12 @@ router.post('/', upload.single('imageFile'), async (req, res) => {
     const slug = title.toLowerCase().replace(/\s+/g, '-');
 
     // Fixed: Use req.file instead of req.files, and consistent field name
-    const coverImage = req.file ? `/uploads/${req.file.filename}` : '';
+    const coverImage = req.file ? `uploads/${req.file.filename}` : '';
 
     const blog = new Blog({
       title,
       content,
-      coverImage, // Changed from imageUrl to coverImage
+      coverImage, 
       slug,
     });
 
@@ -92,7 +92,7 @@ router.put('/:id', upload.single('imageFile'), async (req, res) => {
 
     // Fixed: Use coverImage instead of imageFile
     if (req.file) {
-      updateData.coverImage = `/uploads/${req.file.filename}`;
+      updateData.coverImage = `uploads/${req.file.filename}`;
     }
 
     const updatedBlog = await Blog.findByIdAndUpdate(

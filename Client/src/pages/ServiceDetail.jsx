@@ -14,7 +14,7 @@ const ServiceDetail = () => {
   useEffect(() => {
     const fetchService = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/services/${slug}`);
+        const res = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}api/services/${slug}`);
         setService(res.data);
       } catch (err) {
         console.error("Error fetching service details:", err);

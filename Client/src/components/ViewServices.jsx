@@ -10,7 +10,7 @@ const ViewServices = ({ onEditService }) => {
   const fetchServices = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/services`);
+      const res = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}api/services`);
       setServices(res.data);
     } catch (error) {
       console.error('Error fetching services:', error);
@@ -26,7 +26,7 @@ const ViewServices = ({ onEditService }) => {
     }
 
     try {
-      await axios.delete(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/services/${id}`);
+      await axios.delete(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}api/services/${id}`);
       setServices(services.filter(service => service._id !== id));
       alert('Service deleted successfully!');
     } catch (error) {

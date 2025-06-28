@@ -23,8 +23,8 @@ router.post('/', upload.fields([{ name: 'iconFile' }, { name: 'imageFile' }]), a
     const { title, description, detailDescription } = req.body;
     const slug = title.toLowerCase().replace(/\s+/g, '-');
 
-    const iconUrl = req.files.iconFile ? `/uploads/${req.files.iconFile[0].filename}` : '';
-    const imageUrl = req.files.imageFile ? `/uploads/${req.files.imageFile[0].filename}` : '';
+    const iconUrl = req.files.iconFile ? `uploads/${req.files.iconFile[0].filename}` : '';
+    const imageUrl = req.files.imageFile ? `uploads/${req.files.imageFile[0].filename}` : '';
 
     const service = new Service({
       title,
@@ -100,10 +100,10 @@ router.put('/:id', upload.fields([{ name: 'iconFile' }, { name: 'imageFile' }]),
 
     // Only update files if new ones are uploaded
     if (req.files && req.files.iconFile) {
-      updateData.iconFile = `/uploads/${req.files.iconFile[0].filename}`;
+      updateData.iconFile = `uploads/${req.files.iconFile[0].filename}`;
     }
     if (req.files && req.files.imageFile) {
-      updateData.imageFile = `/uploads/${req.files.imageFile[0].filename}`;
+      updateData.imageFile = `uploads/${req.files.imageFile[0].filename}`;
     }
 
     const updatedService = await Service.findByIdAndUpdate(

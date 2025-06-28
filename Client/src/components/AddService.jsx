@@ -52,7 +52,7 @@ const AddService = ({ editingServiceId, onBackToServices }) => {
   const fetchServiceData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/services/by-id/${editingServiceId}`);
+      const response = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}api/services/by-id/${editingServiceId}`);
       const service = response.data;
       
       setFormData({
@@ -105,12 +105,12 @@ const AddService = ({ editingServiceId, onBackToServices }) => {
     try {
       let response;
       if (isEditMode) {
-        response = await axios.put(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/services/${editingServiceId}`, data, {
+        response = await axios.put(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}api/services/${editingServiceId}`, data, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         alert("Service updated successfully!");
       } else {
-        response = await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/services`, data, {
+        response = await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}api/services`, data, {
           headers: { "Content-Type": "multipart/form-data" },
         });
         alert("Service added successfully!");

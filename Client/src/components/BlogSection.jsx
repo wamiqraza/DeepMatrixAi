@@ -8,7 +8,7 @@ const BlogSection = () => {
 
   useEffect(() => {
     const fetchBlogs = async () => {
-      const res = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}/api/blogs`);
+      const res = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_URL}api/blogs`);
       setBlogs(res.data);
     };
     fetchBlogs();
