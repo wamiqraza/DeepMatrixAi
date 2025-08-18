@@ -2,18 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Service = require('../models/Service');
 const multer = require('multer');
-const path = require('path');
-
-// allocating storage for uploaded files
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = `${Date.now()}-${file.originalname}`;
-    cb(null, uniqueName);
-  }
-});
+const { storage } = require('../utils/cloudinary');
 
 const upload = multer({ storage });
 
@@ -23,8 +12,9 @@ router.post('/', upload.fields([{ name: 'iconFile' }, { name: 'imageFile' }]), a
     const { title, description, detailDescription } = req.body;
     const slug = title.toLowerCase().replace(/\s+/g, '-');
 
-    const iconUrl = req.files.iconFile ? `uploads/${req.files.iconFile[0].filename}` : '';
-    const imageUrl = req.files.imageFile ? `uploads/${req.files.imageFile[0].filename}` : '';
+    // Cloudinary provides URLs in req.files
+    const iconUrl = req.files.iconFile ? req.files.iconFile[0].path : '';
+    const imageUrl = req.files.imageFile ? req.files.imageFile[0].path : '';
 
     const service = new Service({
       title,
@@ -38,6 +28,48 @@ router.post('/', upload.fields([{ name: 'iconFile' }, { name: 'imageFile' }]), a
     await service.save();
     res.status(201).json(service);
   } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+// UPDATE service by ID
+router.put('/:id', upload.fields([{ name: 'iconFile' }, { name: 'imageFile' }]), async (req, res) => {
+  try {
+    const { title, description, detailDescription } = req.body;
+    
+    const updateData = {
+      title,
+      description,
+      detailDescription
+    };
+
+    if (title) {
+      updateData.slug = title.toLowerCase().replace(/\s+/g, '-');
+    }
+
+    // Update files if new ones are uploaded
+    if (req.files?.iconFile) {
+      updateData.iconFile = req.files.iconFile[0].path;
+    }
+    if (req.files?.imageFile) {
+      updateData.imageFile = req.files.imageFile[0].path;
+    }
+
+    const updatedService = await Service.findByIdAndUpdate(
+      req.params.id,
+      { $set: updateData },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedService) {
+      return res.status(404).json({ error: 'Service not found' });
+    }
+
+    res.json(updatedService);
+  } catch (err) {
+    if (err.name === 'CastError') {
+      return res.status(400).json({ error: 'Invalid service ID' });
+    }
     res.status(400).json({ error: err.message });
   }
 });

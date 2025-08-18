@@ -10,10 +10,10 @@ const AddBlog = ({ editingBlogId, onBackToBlogs }) => {
   const [formData, setFormData] = useState({
     title: "",
     content: "",
-    imageFile: null
+    coverImage: null
   });
 
-  const [existingFiles, setExistingFiles] = useState({imageUrl: ""});
+  const [existingFiles, setExistingFiles] = useState({coverImageUrl: ""});
 
   const editor = useRef(null);
   const [content, setContent] = useState('');
@@ -32,11 +32,11 @@ const AddBlog = ({ editingBlogId, onBackToBlogs }) => {
     setFormData({
       title: "",
       content: "",
-      imageFile: null
+      coverImage: null
     });
     setContent('');
     setExistingFiles({
-      imageUrl: ""
+      coverImageUrl: ""
     });
   };
 
@@ -49,13 +49,13 @@ const AddBlog = ({ editingBlogId, onBackToBlogs }) => {
       setFormData({
         title: service.title || "",
         content: service.content || "",
-        imageFile: null
+        coverImage: null
       });
 
       setContent(service.content || "");
       
       setExistingFiles({
-        imageUrl: service.imageFile || ""
+        coverImageUrl: service.coverImage || ""
       });
 
     } catch (error) {
@@ -83,8 +83,8 @@ const AddBlog = ({ editingBlogId, onBackToBlogs }) => {
     data.append("title", formData.title);
     data.append("content", formData.content);
     
-    if (formData.imageFile) {
-      data.append("imageFile", formData.imageFile);
+    if (formData.coverImage) {
+      data.append("coverImage", formData.coverImage);
     }
 
     try {
@@ -156,11 +156,11 @@ const AddBlog = ({ editingBlogId, onBackToBlogs }) => {
 
         <div className="flex flex-col">
           <label htmlFor="">Upload Blog Cover Image: </label>
-          {isEditMode && existingFiles.imageUrl && (
+          {isEditMode && existingFiles.coverImageUrl && (
             <div className="mb-2">
               <span className="text-sm text-gray-600">Current image:</span>
               <img 
-                src={`${import.meta.env.VITE_REACT_APP_BACKEND_URL}${existingFiles.imageUrl}`} 
+                src={`${import.meta.env.VITE_REACT_APP_BACKEND_URL}${existingFiles.coverImageUrl}`} 
                 alt="Current image" 
                 className="w-32 h-20 object-cover border rounded mt-1"
               />
@@ -169,7 +169,7 @@ const AddBlog = ({ editingBlogId, onBackToBlogs }) => {
           <input
             type="file"
             accept="image/*"
-            onChange={e => setFormData({ ...formData, imageFile: e.target.files[0] })}
+            onChange={e => setFormData({ ...formData, coverImage: e.target.files[0] })}
             className="border border-gray-400 mt-2 rounded-lg p-2 w-100"
             required={!isEditMode}
           />

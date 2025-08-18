@@ -1,13 +1,12 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Banner from '../components/Banner'
+import Banner from '../components/Banner';
 import Header from '../components/Header';
 import Marqee from '../components/Marqee';
 import Footer from '../components/Footer';
 
 const BlogDetail = () => {
-
   const { slug } = useParams();
   const [blog, setBlog] = useState(null);
 
@@ -25,33 +24,25 @@ const BlogDetail = () => {
 
   if (!blog) return <div className="p-10">Loading...</div>;
 
-
   return (
     <div>
       <Header />
-      <Banner/>
-      <Marqee/>
+      <Banner />
+      <Marqee />
       <div className="max-w-4xl mx-auto px-4 py-12">
-
         <h1 className="text-3xl font-bold mb-6">{blog.title}</h1>
-
         {blog.imageFile && (
-          <img
-            src={`${import.meta.env.VITE_REACT_APP_BACKEND_URL}${blog.imageFile}`}
-            alt={blog.title}
-            className="w-full h-auto rounded-lg mb-6"
-          />
+          <img src={`${blog.imageFile}`} alt={blog.title} className="w-full h-auto rounded-lg mb-6" />
         )}
-
-
-        <div
-          className="text-gray-700 text-md leading-relaxed"
-          dangerouslySetInnerHTML={{ __html: blog.content }}
-        />
+        <div className="text-gray-700 text-md leading-relaxed" dangerouslySetInnerHTML={{ __html: blog.content }} />
+        <div className="flex flex-row justify-between items-start mt-8">
+          <span className="text-sm">Posted By: Admin</span>
+          <span className="text-sm">Published on: {new Date(blog.createdAt).toLocaleDateString()}</span>
+        </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default BlogDetail
+export default BlogDetail;

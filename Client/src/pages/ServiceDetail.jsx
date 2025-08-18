@@ -37,7 +37,7 @@ const ServiceDetail = () => {
 
         {service.imageFile && (
           <img
-            src={`${import.meta.env.VITE_REACT_APP_BACKEND_URL}${service.imageFile}`}
+            src={`${service.imageFile}`}
             alt={service.title}
             className="w-full h-auto rounded-lg mb-6"
           />

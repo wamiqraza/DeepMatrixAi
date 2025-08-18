@@ -2,40 +2,64 @@ const express = require('express');
 const router = express.Router();
 const Blog = require('../models/Blog');
 const multer = require('multer');
-const path = require('path');
+const { storage } = require('../utils/cloudinary'); // Import the same storage config
 
-// allocating storage for uploaded files
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = `${Date.now()}-${file.originalname}`;
-    cb(null, uniqueName);
-  }
-});
-
-const upload = multer({ storage });
+const upload = multer({ storage }); // Use the same Cloudinary storage
 
 // CREATE new blog
-router.post('/', upload.single('imageFile'), async (req, res) => {
+router.post('/', upload.single('coverImage'), async (req, res) => {
   try {
     const { title, content } = req.body;
     const slug = title.toLowerCase().replace(/\s+/g, '-');
 
-    // Fixed: Use req.file instead of req.files, and consistent field name
-    const coverImage = req.file ? `uploads/${req.file.filename}` : '';
+    // Cloudinary will automatically use the 'uploads' folder
+    const coverImage = req.file ? req.file.path : '';
 
     const blog = new Blog({
       title,
       content,
-      coverImage, 
+      coverImage,
       slug,
     });
 
     await blog.save();
     res.status(201).json(blog);
   } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+
+// UPDATE blog by ID
+router.put('/:id', upload.single('coverImage'), async (req, res) => {
+  try {
+    const { title, content } = req.body;
+
+    const updateData = {
+      title,
+      content,
+      slug: title.toLowerCase().replace(/\s+/g, '-'),
+    };
+
+    if (req.file) {
+      updateData.coverImage = req.file.path;
+    }
+
+    const updatedBlog = await Blog.findByIdAndUpdate(
+      req.params.id,
+      { $set: updateData },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedBlog) {
+      return res.status(404).json({ error: 'Blog not found' });
+    }
+
+    res.json(updatedBlog);
+  } catch (err) {
+    if (err.name === 'CastError') {
+      return res.status(400).json({ error: 'Invalid blog ID' });
+    }
     res.status(400).json({ error: err.message });
   }
 });
@@ -76,41 +100,6 @@ router.get('/:slug', async (req, res) => {
     res.json(blog);
   } catch (err) {
     res.status(500).json({ error: err.message });
-  }
-});
-
-// UPDATE blog by ID
-router.put('/:id', upload.single('imageFile'), async (req, res) => {
-  try {
-    const { title, content } = req.body;
-
-    const updateData = {
-      title,
-      content,
-      slug: title.toLowerCase().replace(/\s+/g, '-'),
-    };
-
-    // Fixed: Use coverImage instead of imageFile
-    if (req.file) {
-      updateData.coverImage = `uploads/${req.file.filename}`;
-    }
-
-    const updatedBlog = await Blog.findByIdAndUpdate(
-      req.params.id,
-      { $set: updateData },
-      { new: true, runValidators: true }
-    );
-
-    if (!updatedBlog) {
-      return res.status(404).json({ error: 'Blog not found' });
-    }
-
-    res.json(updatedBlog);
-  } catch (err) {
-    if (err.name === 'CastError') {
-      return res.status(400).json({ error: 'Invalid blog ID' });
-    }
-    res.status(400).json({ error: err.message });
   }
 });
 

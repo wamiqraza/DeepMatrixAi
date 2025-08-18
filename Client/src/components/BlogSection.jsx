@@ -36,14 +36,14 @@ const BlogSection = () => {
           </button>
       </div>
 
-      <div className="flex flex-row gap-8 flex-wrap items-start justify-start mt-10">
+      <div className="grid lg:grid-cols-2 grid-cols-1 gap-8 mt-10">
             {blogs.map((blog, index) => {
 
               const plainText = blog.content?.replace(/<[^>]+>/g, '');
               const trimmedText = plainText?.split(' ').slice(0, 15).join(' ') + '...';
 
               return (
-                <div key={blog._id || index} style={{ backgroundImage: `url(${import.meta.env.VITE_REACT_APP_BACKEND_URL}${blog.coverImage})` }} className="bg-white bg-cover bg-center rounded-lg overflow-hidden shadow-md flex flex-col justify-between min-h-100">
+                <div key={blog._id || index} style={{ backgroundImage: `url(${blog.coverImage})` }} className="bg-white bg-cover bg-center rounded-lg overflow-hidden shadow-md flex flex-col justify-between min-h-100">
                   <div className="relative">
                     <span className="time absolute top-2 right-2 bg-black text-white py-1 px-2 rounded-full text-sm">5 min read</span>
                   </div>
