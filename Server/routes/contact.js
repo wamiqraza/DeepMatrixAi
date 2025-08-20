@@ -1,39 +1,43 @@
-// In routes/contact.js
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   const { name, email, message } = req.body;
-  const { EMAIL, GMAIL_APP_PASS } = process.env;
-  const gmailAppPass = GMAIL_APP_PASS ? GMAIL_APP_PASS.replace(/\s+/g, '') : undefined;
+  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
 
-  if (!EMAIL || !gmailAppPass) {
-    return res.status(500).json({ message: 'Email environment variables are not configured' });
+  if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASS) {
+    return res.status(500).json({ message: "SMTP environment variables are not configured" });
   }
 
-  // Set up nodemailer transporter (example with Gmail)
+  // Create transporter with your cPanel email settings
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: SMTP_HOST,
+    port: SMTP_PORT,
+    secure: true,
     auth: {
-      user: EMAIL,
-      pass: gmailAppPass, // Use an app password, not your main password
+      user: SMTP_USER,
+      pass: SMTP_PASS,
+    },
+    tls: {
+      rejectUnauthorized: false, 
     },
   });
 
   const mailOptions = {
-    from: EMAIL,
-    to: EMAIL,
-    replyTo: email,
+    from: SMTP_USER, // your pro email
+    to: SMTP_USER,   // where you want to receive messages
+    replyTo: email,  // the visitor’s email
     subject: `Contact Form Submission from ${name}`,
-    text: message,
+    text: `Name: ${name}\nEmail: ${email}\nMessage:\n${message}`,
   };
 
   try {
     await transporter.sendMail(mailOptions);
-    res.status(200).json({ message: 'Email sent successfully' });
+    res.status(200).json({ message: "Email sent successfully" });
   } catch (err) {
-    res.status(500).json({ message: 'Failed to send email', error: err });
+    console.error("Mail Error:", err);
+    res.status(500).json({ message: "Failed to send email", error: err.message });
   }
 });
 

@@ -12,7 +12,7 @@ const app = express();
 const mongoDB = process.env.MONGODB_URI;
 const PORT = process.env.PORT || 5000;
 
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoDB)
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.error("MongoDB connection error:", err));
 

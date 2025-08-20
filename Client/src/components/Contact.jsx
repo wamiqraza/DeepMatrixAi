@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import contactUs from '../assets/images/contact-us.png';
+import { Loader } from 'lucide-react';
 
 const Contact = () => {
   const [form, setForm] = useState({
@@ -7,6 +8,7 @@ const Contact = () => {
     email: '',
     message: '',
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,6 +20,7 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await fetch((`${import.meta.env.VITE_REACT_APP_BACKEND_URL}api/contact`), {
         method: 'POST',
@@ -33,6 +36,8 @@ const Contact = () => {
     } catch (error) {
       alert('Error sending message.');
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -71,7 +76,13 @@ const Contact = () => {
                 placeholder="Message"
                 required
               ></textarea>
-            <button type="submit" className='bg-gradient-to-r from-[#A55EEA] to-[#648DFD] text-white px-6 py-2 rounded-full hover:from-[#A55EEA] hover:to-[#648DFD] transition duration-300 ease-in-out cursor-pointer'>Submit</button>
+            <button type="submit" className='bg-gradient-to-r from-[#A55EEA] to-[#648DFD] text-white px-6 py-2 rounded-full hover:from-[#A55EEA] hover:to-[#648DFD] transition duration-300 ease-in-out cursor-pointer flex items-center justify-center' disabled={loading}>
+              {loading ? (
+                <Loader className="animate-spin w-5 h-5" />
+              ) : (
+                "Submit"
+              )}
+            </button>
           </form>
         </div>
     </div>
